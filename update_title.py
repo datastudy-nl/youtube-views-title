@@ -2,10 +2,11 @@ import pickle
 import os
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
+import dotenv, os
+dotenv.load_dotenv()
 
-
-YOUTUBE_CHANNEL_ID = 'your-youtube-channel-id'
-VIDEO_ID = 'your-video-id'
+YOUTUBE_CHANNEL_ID = os.getenv('YOUTUBE_CHANNEL_ID')
+VIDEO_ID = os.getenv('VIDEO_ID')
 SECRET_FILE_PATH = './auth/client_secrets.json'
 
 PICKLE_FILE_PATH = f'./auth/pickles/{YOUTUBE_CHANNEL_ID}.pickle'
