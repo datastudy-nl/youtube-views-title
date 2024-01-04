@@ -22,15 +22,20 @@ service = build('youtube', 'v3', credentials=credentials)
 video_details = service.videos().list(part='snippet,statistics', id=VIDEO_ID).execute()['items'][0]
 statistics = video_details['statistics']
 
-if video_details:
-    views = int(statistics['viewCount'])
-    likes = int(statistics['likeCount'])
-    dislikes = int(statistics['dislikeCount'])
-    comments = int(statistics['commentCount'])
-    video_details['snippet']['title'] = f"This video currently has {statistics['viewCount']} views"
-    video_details['snippet']['description'] = f"The title should update with your view ;)\n\nThis video currently has {statistics['likeCount']} likes, {statistics['dislikeCount']} dislikes, and {statistics['commentCount']} comments. \n\n#scorchai #scorchchamp #live"
+if not video_details: raise Exception('No video details found')
 
-    print(video_details['snippet']['title'])
+views = statistics['viewCount']
+likes = statistics['likeCount']
+dislikes = statistics['dislikeCount']
+comments = statistics['commentCount']
+new_title = f"This video currently has {statistics['viewCount']} views"
+new_description = f"This video currently has {statistics['likeCount']} likes, {statistics['dislikeCount']} dislikes, and {statistics['commentCount']} comments. \n\n#scorchai #scorchchamp #live"
+
+if video_details['snippet']['title'] + video_details['snippet']['description']!= new_title + new_description:
+    video_details['snippet']['title'] = new_title
+    video_details['snippet']['description'] = new_description
+
+    print(new_title)
     service.videos().update(
         part='snippet',
         body={
