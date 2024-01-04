@@ -26,7 +26,7 @@ like_count = video_details['topLevelComment']['snippet']['likeCount']
 reply_count = video_details['totalReplyCount']
 
 old_title = video_details['topLevelComment']['snippet']['textOriginal']
-new_title = f"This comment currently has {like_count} likes and {reply_count} replies! \n\n View the sourcecode for this bot over at: https://github.com/datastudy-nl/youtube-views-title"
+new_title = f"This comment currently has {like_count} likes and {reply_count} replies! \n\n View the sourcecode over at: https://github.com/datastudy-nl/youtube-views-title"
 
 comment_snippet = service.comments().list(part='snippet', id=COMMENT_ID).execute()['items'][0]['snippet']
 
